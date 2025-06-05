@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // La información general sobre un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie los valores de estos atributos para modificar la información
 // asociada a un ensamblado.
-[assembly: AssemblyTitle("IMOVS_TEST")]
+[assembly: AssemblyTitle("PRUEBA_TECNICA_IMOVS")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HP")]
-[assembly: AssemblyProduct("IMOVS_TEST")]
+[assembly: AssemblyProduct("PRUEBA_TECNICA_IMOVS")]
 [assembly: AssemblyCopyright("Copyright © HP 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // El siguiente GUID sirve como ID de typelib si este proyecto se expone a COM
-[assembly: Guid("54dc1d1d-99fc-4cce-8776-8c1b4b5bbd06")]
+[assembly: Guid("d2b52acd-9327-44f9-a146-c856b7cb70a3")]
 
 // La información de versión de un ensamblado consta de los siguientes cuatro valores:
 //

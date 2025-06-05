@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace IMOVS_TEST
+namespace PRUEBA_TECNICA_IMOVS
 {
     public static class WebApiConfig
     {

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="IMOVS_TEST.Index" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="PRUEBA_TECNICA_IMOVS.Index" %>
 
 <!DOCTYPE html>
 
@@ -10,6 +10,8 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <h1>PRUEBA TÉCNICA, COTIZACIÓN DE COMPRA DE PRODUCTOS</h1>
+            <h3>En esta vista coloca las redirecciones que requieras.</h3>
         </div>
     </form>
 </body>
