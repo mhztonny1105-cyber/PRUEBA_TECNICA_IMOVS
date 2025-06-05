@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
+using PRUEBA_TECNICA_IMOVS.Models.Entities;
 
 namespace PRUEBA_TECNICA_IMOVS.Models
 {
@@ -11,7 +12,6 @@ namespace PRUEBA_TECNICA_IMOVS.Models
             : base("name=Context")
         {
         }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
