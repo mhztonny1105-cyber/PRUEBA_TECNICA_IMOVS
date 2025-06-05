@@ -7,14 +7,15 @@ using System.Web;
 
 namespace PRUEBA_TECNICA_IMOVS.Models.Entities
 {
+    [Table("EntidadEjemplo")]
     public class EntidadEjemplo
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]   
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [StringLength(250)]
-        public string Nombre { get; set; }
-        public int Años { get; set; }   
+        public string Nombre { get; set; }  
+        public int Años { get; set; }
     }
 }

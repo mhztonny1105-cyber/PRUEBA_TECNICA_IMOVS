@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
-using PRUEBA_TECNICA_IMOVS.Models.Entities;
 
 namespace PRUEBA_TECNICA_IMOVS.Models
 {
