@@ -92,7 +92,7 @@
             </asp:GridView>
             
             <br />
-            <a href="../Index.aspx">Volver al menú principal</a>
+            <a href="../Index.aspx" class="btn-primary" padding: 10px 20px;>Volver al menú principal</a>
         </div>
     </form>
 </body>

@@ -84,18 +84,18 @@
                 <h2 class="menu-title">Módulos del Sistema</h2>
                 
                 <a href="Views/GestionProductos.aspx" class="nav-link">
-                    📦 Gestión de Productos
+                    Gestión de Productos
                 </a>
                 
                 <a href="Views/Cotizaciones.aspx" class="nav-link nav-link-secondary">
-                    📋 Realizar Cotización
+                    Realizar Cotización
                 </a>
             </div>
             
 
             
             <div class="footer">
-                <p>Sistema desarrollado para prueba técnica - <%= DateTime.Now.Year %></p>
+                <p>Prueba tecnica BRMH- <%= DateTime.Now.Year %></p>
             </div>
         </div>
     </form>

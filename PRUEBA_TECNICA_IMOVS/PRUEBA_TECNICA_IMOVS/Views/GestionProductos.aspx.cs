@@ -172,7 +172,7 @@ namespace PRUEBA_TECNICA_IMOVS.Views
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = $"Error al eliminar el producto: {ex.Message}";
+                lblMensaje.Text = $"Error al eliminar el producto, no se puede eliminar un prodcuto confirmado para venta";
                 lblMensaje.CssClass = "error";
             }
         }

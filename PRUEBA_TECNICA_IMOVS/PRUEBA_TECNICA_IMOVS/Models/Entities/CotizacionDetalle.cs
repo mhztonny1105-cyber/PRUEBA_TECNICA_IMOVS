@@ -17,8 +17,12 @@ namespace PRUEBA_TECNICA_IMOVS.Models.Entities
         public decimal PrecioTotal { get; set; }
         public int CotizacionId { get; set; }
         public int ProductoId { get; set; }
-        
 
+        [NotMapped]
+        public string Nombre { get; set; }
+
+        [NotMapped]
+        public decimal PrecioUnitario { get; set; }
         public virtual Cotizacion Cotizacion { get; set; }
         public virtual Producto Producto { get; set; }
     }

@@ -91,11 +91,13 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Index.aspx" />
+    <Content Include="Views\Cotizaciones.aspx" />
     <Content Include="Views\GestionProductos.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CotizacionesController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -118,6 +120,13 @@
     <Compile Include="Models\Entities\EntidadEjemplo.cs" />
     <Compile Include="Models\Entities\Pruducto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Cotizaciones.aspx.cs">
+      <DependentUpon>Cotizaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Cotizaciones.aspx.designer.cs">
+      <DependentUpon>Cotizaciones.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\GestionProductos.aspx.cs">
       <DependentUpon>GestionProductos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
