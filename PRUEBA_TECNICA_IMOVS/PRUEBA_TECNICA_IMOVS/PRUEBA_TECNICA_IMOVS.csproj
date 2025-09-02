@@ -95,6 +95,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Controllers\TicketDetailController.cs" />
+    <Compile Include="DTOs\CreatePaymentDto.cs" />
+    <Compile Include="DTOs\CreateProductDto.cs" />
+    <Compile Include="DTOs\CreateTicketDetailDto.cs" />
+    <Compile Include="DTOs\CreateTicketDto.cs" />
+    <Compile Include="DTOs\UpdatePaymentDto.cs" />
+    <Compile Include="DTOs\UpdateProductDto.cs" />
+    <Compile Include="DTOs\UpdateTicketDetailDto.cs" />
+    <Compile Include="DTOs\UpdateTicketDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -108,7 +120,27 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\Entities\EntidadEjemplo.cs" />
+    <Compile Include="Models\Entities\Payment.cs" />
+    <Compile Include="Models\Entities\Product.cs" />
+    <Compile Include="Models\Entities\Ticket.cs" />
+    <Compile Include="Models\Entities\TicketDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Interfaces\IPaymentRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IProductRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITicketDetailRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITicketRepository.cs" />
+    <Compile Include="Repositories\PaymentRepository.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\TicketDetailRepository.cs" />
+    <Compile Include="Repositories\TicketRepository.cs" />
+    <Compile Include="Services\Interfaces\IPaymentService.cs" />
+    <Compile Include="Services\Interfaces\IProductService.cs" />
+    <Compile Include="Services\Interfaces\ITicketDetailService.cs" />
+    <Compile Include="Services\Interfaces\ITicketService.cs" />
+    <Compile Include="Services\PaymentService.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\TicketDetailService.cs" />
+    <Compile Include="Services\TicketService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -121,7 +153,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <PropertyGroup>
