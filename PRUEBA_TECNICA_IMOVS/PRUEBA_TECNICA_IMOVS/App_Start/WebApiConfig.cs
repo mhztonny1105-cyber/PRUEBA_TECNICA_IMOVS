@@ -1,24 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using CompanyManagement.Api.Configuration;
+using CompanyManagement.Api.Filters;
 
-namespace PRUEBA_TECNICA_IMOVS
+
+namespace CompanyManagement.Api
 {
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {
-            // Configuración y servicios de Web API
-
-            // Rutas de Web API
+            // Rutas por atributo
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+
+            // Filtros
+            config.Filters.Add(new ValidateModelAttribute());
+            config.Filters.Add(new GlobalExceptionFilter());
+
+
+            // JSON
+            JsonConfig.Configure(config);
+
+
+            // DI
+            AutofacConfig.Register(config);
         }
     }
 }
