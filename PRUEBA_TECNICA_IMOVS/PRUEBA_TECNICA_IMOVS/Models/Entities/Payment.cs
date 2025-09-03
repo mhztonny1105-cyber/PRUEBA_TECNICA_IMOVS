@@ -17,19 +17,6 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Models.Entities
         public int PaymentNumber { get; set; }
 
 
-        // Secuencial por Ticket
-        [Index("IX_Payment_Ticket_PaymentNumber", IsUnique = true, Order = 1)]
-        public int TicketId_ForIndex
-        {
-            get => TicketId;
-            private set { /* EF index backing */ }
-        }
-
-
-        [Index("IX_Payment_Ticket_PaymentNumber", IsUnique = true, Order = 2)]
-        public int PaymentNumber { get; set; }
-
-
         [Column(TypeName = "decimal")]
         public decimal Amount { get; set; }
 
