@@ -42,7 +42,7 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Configuration
             // AutoMapper
             var mapperConfig = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new MappingProfile());
+                cfg.AddProfile(new Mapping.MappingProfile());
             });
             builder.RegisterInstance(mapperConfig.CreateMapper()).As<IMapper>().SingleInstance();
 
