@@ -68,13 +68,55 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
             if (dto?.Lines == null || dto.Lines.Count == 0)
                 throw new InvalidOperationException("El ticket debe contener al menos una línea.");
 
-
             var ticket = new Ticket
             {
                 Folio = FolioGenerator.GenerateTicketFolio(),
                 Status = TicketStatus.PorPagar,
                 Total = 0m,
+                PendingAmount = 0m
             };
+
+            await _ticketRepo.AddAsync(ticket); // obtener Id
+
+            decimal total = 0m;
+            var productIds = dto.Lines.Select(x => x.ProductId).ToList();
+            var products = await _productRepo.Query()
+                .Where(p => productIds.Contains(p.Id))
+                .ToListAsync();
+
+            foreach (var line in dto.Lines)
+            {
+                var prod = products.FirstOrDefault(p => p.Id == line.ProductId)
+                           ?? throw new InvalidOperationException($"Producto {line.ProductId} no existe.");
+                if (line.Quantity <= 0) throw new InvalidOperationException("Cantidad debe ser > 0.");
+
+                var unit = prod.UnitPrice;
+                var lineTotal = unit * line.Quantity;
+                total += lineTotal;
+
+                var entityLine = new TicketLine
+                {
+                    TicketId = ticket.Id,
+                    ProductId = prod.Id,
+                    Quantity = line.Quantity,
+                    UnitPriceSnapshot = unit,
+                    LineTotal = lineTotal
+                };
+                await _lineRepo.AddAsync(entityLine);
+            }
+
+            ticket.Total = total;
+            ticket.PendingAmount = total;
+            _ticketRepo.Update(ticket);
+            await _ticketRepo.SaveChangesAsync();
+
+            // Carga y mapeo fuera de IQueryable (y return garantizado)
+            var updated = await _ticketRepo.Query()
+                .Include(t => t.Lines.Select(l => l.Product))
+                .Include(t => t.Payments)
+                .FirstOrDefaultAsync(t => t.Id == ticket.Id);
+
+            return _mapper.Map<TicketDetailDto>(updated);
         }
     }
 }

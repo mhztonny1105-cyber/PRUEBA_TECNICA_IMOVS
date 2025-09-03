@@ -47,20 +47,16 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
         public async Task<TicketDetailDto> CreateAsync(PaymentCreateDto dto)
         {
             var ticket = await _ticketRepo.Query()
-            .Include(t => t.Payments)
-            .FirstOrDefaultAsync(t => t.Id == dto.TicketId);
+                .Include(t => t.Payments)
+                .FirstOrDefaultAsync(t => t.Id == dto.TicketId);
+
             if (ticket == null) throw new InvalidOperationException("Ticket no encontrado.");
-            if (ticket.Status == TicketStatus.Pagado)
-                throw new InvalidOperationException("El ticket ya está liquidado.");
+            if (ticket.Status == TicketStatus.Pagado) throw new InvalidOperationException("El ticket ya está liquidado.");
             if (dto.Amount <= 0) throw new InvalidOperationException("El monto debe ser > 0.");
-            if (dto.Amount > ticket.PendingAmount)
-                throw new InvalidOperationException("El pago excede el saldo pendiente.");
+            if (dto.Amount > ticket.PendingAmount) throw new InvalidOperationException("El pago excede el saldo pendiente.");
 
-
-            // Siguiente número de pago por ticket
             var nextNumber = (ticket.Payments?.Max(p => (int?)p.PaymentNumber) ?? 0) + 1;
             var folio = FolioGenerator.GeneratePaymentFolio(ticket.Folio, nextNumber);
-
 
             var payment = new Payment
             {
@@ -72,11 +68,29 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
                 Notes = dto.Notes
             };
 
-
             await _paymentRepo.AddAsync(payment);
 
+            ticket.PendingAmount -= payment.Amount;
+            if (ticket.PendingAmount == 0)
+            {
+                ticket.Status = TicketStatus.Pagado;
+                ticket.SettledAt = DateTime.UtcNow;
+            }
+            _ticketRepo.Update(ticket);
+            await _ticketRepo.SaveChangesAsync();
 
-            // Recalcular saldo
+            var updated = await _ticketRepo.Query()
+                .Include(t => t.Lines.Select(l => l.Product))
+                .Include(t => t.Payments)
+                .FirstOrDefaultAsync(t => t.Id == ticket.Id);
+
+            var dtoOut = _mapper.Map<TicketDetailDto>(updated);
+            dtoOut.Payments = dtoOut.Payments
+                .OrderByDescending(p => p.PaidAt)
+                .ThenByDescending(p => p.PaymentNumber)
+                .ToList();
+
+            return dtoOut;
         }
     }
 }

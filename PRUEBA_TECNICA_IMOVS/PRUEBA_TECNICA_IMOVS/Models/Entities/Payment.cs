@@ -8,13 +8,13 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Models.Entities
     public class Payment : BaseEntity
     {
         [Required]
+        [Index("IX_Payment_Ticket_PaymentNumber", 1, IsUnique = true)]
         public int TicketId { get; set; }
         public virtual Ticket Ticket { get; set; }
 
-
-        [Required, StringLength(64)]
-        [Index("IX_Payment_Folio", IsUnique = true)]
-        public string Folio { get; set; }
+        [Required]
+        [Index("IX_Payment_Ticket_PaymentNumber", 2, IsUnique = true)]
+        public int PaymentNumber { get; set; }
 
 
         // Secuencial por Ticket
