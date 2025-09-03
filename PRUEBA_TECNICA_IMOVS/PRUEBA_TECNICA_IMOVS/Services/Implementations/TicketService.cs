@@ -12,6 +12,17 @@ using PRUEBA_TECNICA_IMOVS.Api.Services.Contracts;
 
 namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AutoMapper;
+    using PRUEBA_TECNICA_IMOVS.Api.Data.Repositories;
+    using PRUEBA_TECNICA_IMOVS.Api.Models.DTOs;
+    using PRUEBA_TECNICA_IMOVS.Api.Models.Entities;
+    using PRUEBA_TECNICA_IMOVS.Api.Services.Contracts;
+
     public class TicketService : ITicketService
     {
         private readonly IGenericRepository<Ticket> _ticketRepo;
@@ -20,13 +31,12 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
         private readonly IGenericRepository<Payment> _paymentRepo;
         private readonly IMapper _mapper;
 
-
         public TicketService(
-        IGenericRepository<Ticket> ticketRepo,
-        IGenericRepository<Product> productRepo,
-        IGenericRepository<TicketLine> lineRepo,
-        IGenericRepository<Payment> paymentRepo,
-        IMapper mapper)
+            IGenericRepository<Ticket> ticketRepo,
+            IGenericRepository<Product> productRepo,
+            IGenericRepository<TicketLine> lineRepo,
+            IGenericRepository<Payment> paymentRepo,
+            IMapper mapper)
         {
             _ticketRepo = ticketRepo;
             _productRepo = productRepo;
@@ -35,33 +45,35 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
             _mapper = mapper;
         }
 
-
+        // ====== ITicketService ======
         public async Task<IEnumerable<TicketListItemDto>> GetAllAsync()
         {
             var list = await _ticketRepo.Query()
-            .OrderByDescending(t => t.CreatedAt)
-            .ToListAsync();
+                .OrderByDescending(t => t.CreatedAt)
+                .ToListAsync();
+
             return _mapper.Map<IEnumerable<TicketListItemDto>>(list);
         }
-
 
         public async Task<TicketDetailDto> GetByIdAsync(int id)
         {
             var entity = await _ticketRepo.Query()
-            .Include(t => t.Lines.Select(l => l.Product))
-            .Include(t => t.Payments)
-            .FirstOrDefaultAsync(t => t.Id == id);
+                .Include(t => t.Lines.Select(l => l.Product))
+                .Include(t => t.Payments)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
             if (entity == null) return null;
 
-
             var dto = _mapper.Map<TicketDetailDto>(entity);
-            dto.Payments = dto.Payments
-            .OrderByDescending(p => p.PaidAt)
-            .ThenByDescending(p => p.PaymentNumber)
-            .ToList();
+            if (dto.Payments != null)
+            {
+                dto.Payments = dto.Payments
+                    .OrderByDescending(p => p.PaidAt)
+                    .ThenByDescending(p => p.PaymentNumber)
+                    .ToList();
+            }
             return dto;
         }
-
 
         public async Task<TicketDetailDto> CreateAsync(TicketCreateDto dto)
         {
@@ -76,7 +88,7 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
                 PendingAmount = 0m
             };
 
-            await _ticketRepo.AddAsync(ticket); // obtener Id
+            await _ticketRepo.AddAsync(ticket); // para tener Id
 
             decimal total = 0m;
             var productIds = dto.Lines.Select(x => x.ProductId).ToList();
@@ -88,7 +100,8 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
             {
                 var prod = products.FirstOrDefault(p => p.Id == line.ProductId)
                            ?? throw new InvalidOperationException($"Producto {line.ProductId} no existe.");
-                if (line.Quantity <= 0) throw new InvalidOperationException("Cantidad debe ser > 0.");
+                if (line.Quantity <= 0)
+                    throw new InvalidOperationException("Cantidad debe ser > 0.");
 
                 var unit = prod.UnitPrice;
                 var lineTotal = unit * line.Quantity;
@@ -110,13 +123,44 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
             _ticketRepo.Update(ticket);
             await _ticketRepo.SaveChangesAsync();
 
-            // Carga y mapeo fuera de IQueryable (y return garantizado)
+            // Detalle
             var updated = await _ticketRepo.Query()
                 .Include(t => t.Lines.Select(l => l.Product))
                 .Include(t => t.Payments)
                 .FirstOrDefaultAsync(t => t.Id == ticket.Id);
 
             return _mapper.Map<TicketDetailDto>(updated);
+        }
+
+        public async Task<TicketDetailDto> UpdateAsync(int id)
+        {
+            var ticket = await _ticketRepo.GetByIdAsync(id);
+            if (ticket == null) return null;
+
+            // (aquí actualizarías campos del encabezado si existieran)
+            await _ticketRepo.SaveChangesAsync();
+
+            var updated = await _ticketRepo.Query()
+                .Include(t => t.Lines.Select(l => l.Product))
+                .Include(t => t.Payments)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            return _mapper.Map<TicketDetailDto>(updated);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var ticket = await _ticketRepo.Query()
+                .Include(t => t.Payments)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (ticket == null) return;
+
+            if (ticket.Payments != null && ticket.Payments.Any())
+                throw new InvalidOperationException("No se puede eliminar un ticket con pagos registrados.");
+
+            _ticketRepo.Remove(ticket);
+            await _ticketRepo.SaveChangesAsync();
         }
     }
 }

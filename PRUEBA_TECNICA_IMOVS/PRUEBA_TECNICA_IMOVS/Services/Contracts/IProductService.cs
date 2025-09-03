@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using PRUEBA_TECNICA_IMOVS.Api.Models.DTOs;
-
-
-namespace PRUEBA_TECNICA_IMOVS.Api.Services.Contracts
+﻿namespace PRUEBA_TECNICA_IMOVS.Api.Services.Contracts
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using PRUEBA_TECNICA_IMOVS.Api.Models.DTOs;
+
     public interface IProductService
     {
         Task<IEnumerable<ProductDto>> GetAllAsync();

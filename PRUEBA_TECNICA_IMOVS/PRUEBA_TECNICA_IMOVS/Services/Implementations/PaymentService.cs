@@ -10,32 +10,46 @@ using PRUEBA_TECNICA_IMOVS.Api.Models.Entities;
 using PRUEBA_TECNICA_IMOVS.Api.Services.Contracts;
 
 
+// Services/Implementations/PaymentService.cs
 namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AutoMapper;
+    using PRUEBA_TECNICA_IMOVS.Api.Data.Repositories;
+    using PRUEBA_TECNICA_IMOVS.Api.Models.DTOs;
+    using PRUEBA_TECNICA_IMOVS.Api.Models.Entities;
+    using PRUEBA_TECNICA_IMOVS.Api.Services.Contracts;
+
     public class PaymentService : IPaymentService
     {
         private readonly IGenericRepository<Payment> _paymentRepo;
         private readonly IGenericRepository<Ticket> _ticketRepo;
         private readonly IMapper _mapper;
 
-
-        public PaymentService(IGenericRepository<Payment> paymentRepo, IGenericRepository<Ticket> ticketRepo, IMapper mapper)
+        public PaymentService(
+            IGenericRepository<Payment> paymentRepo,
+            IGenericRepository<Ticket> ticketRepo,
+            IMapper mapper)
         {
             _paymentRepo = paymentRepo;
             _ticketRepo = ticketRepo;
             _mapper = mapper;
         }
 
-
+        // === IPaymentService ===
         public async Task<IEnumerable<PaymentDto>> GetAllAsync()
         {
             var list = await _paymentRepo.Query()
-            .OrderByDescending(p => p.PaidAt)
-            .ThenByDescending(p => p.PaymentNumber)
-            .ToListAsync();
+                .OrderByDescending(p => p.PaidAt)
+                .ThenByDescending(p => p.PaymentNumber)
+                .ToListAsync();
+
             return _mapper.Map<IEnumerable<PaymentDto>>(list);
         }
-
 
         public async Task<PaymentDto> GetByIdAsync(int id)
         {
@@ -43,9 +57,9 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
             return entity == null ? null : _mapper.Map<PaymentDto>(entity);
         }
 
-
         public async Task<TicketDetailDto> CreateAsync(PaymentCreateDto dto)
         {
+            // Cargar ticket + pagos para calcular número secuencial
             var ticket = await _ticketRepo.Query()
                 .Include(t => t.Payments)
                 .FirstOrDefaultAsync(t => t.Id == dto.TicketId);
@@ -70,6 +84,7 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
 
             await _paymentRepo.AddAsync(payment);
 
+            // Recalcular saldo/estatus del ticket
             ticket.PendingAmount -= payment.Amount;
             if (ticket.PendingAmount == 0)
             {
@@ -79,17 +94,46 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
             _ticketRepo.Update(ticket);
             await _ticketRepo.SaveChangesAsync();
 
+            return await LoadTicketDetail(ticket.Id);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var payment = await _paymentRepo.GetByIdAsync(id);
+            if (payment == null) return;
+
+            var ticket = await _ticketRepo.GetByIdAsync(payment.TicketId);
+            if (ticket != null)
+            {
+                ticket.PendingAmount += payment.Amount;
+                if (ticket.Status == TicketStatus.Pagado)
+                {
+                    ticket.Status = TicketStatus.PorPagar;
+                    ticket.SettledAt = null;
+                }
+                _ticketRepo.Update(ticket);
+            }
+
+            _paymentRepo.Remove(payment);
+            await _paymentRepo.SaveChangesAsync();
+        }
+
+        // === Helper ===
+        private async Task<TicketDetailDto> LoadTicketDetail(int ticketId)
+        {
             var updated = await _ticketRepo.Query()
                 .Include(t => t.Lines.Select(l => l.Product))
                 .Include(t => t.Payments)
-                .FirstOrDefaultAsync(t => t.Id == ticket.Id);
+                .FirstOrDefaultAsync(t => t.Id == ticketId);
 
             var dtoOut = _mapper.Map<TicketDetailDto>(updated);
-            dtoOut.Payments = dtoOut.Payments
-                .OrderByDescending(p => p.PaidAt)
-                .ThenByDescending(p => p.PaymentNumber)
-                .ToList();
-
+            if (dtoOut?.Payments != null)
+            {
+                dtoOut.Payments = dtoOut.Payments
+                    .OrderByDescending(p => p.PaidAt)
+                    .ThenByDescending(p => p.PaymentNumber)
+                    .ToList();
+            }
             return dtoOut;
         }
     }

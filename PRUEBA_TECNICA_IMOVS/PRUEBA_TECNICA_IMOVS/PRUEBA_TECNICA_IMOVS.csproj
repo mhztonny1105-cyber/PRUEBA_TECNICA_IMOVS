@@ -124,8 +124,6 @@
     <Compile Include="Data\AppDbContext.cs" />
     <Compile Include="Data\Repositories\GenericRepository.cs" />
     <Compile Include="Data\Repositories\IGenericRepository.cs" />
-    <Compile Include="Data\Repositories\IProductRepository.cs" />
-    <Compile Include="Data\Repositories\ProductRepository.cs" />
     <Compile Include="Data\UnitOfWork.cs" />
     <Compile Include="DTOs\PaymentDto.cs" />
     <Compile Include="DTOs\ProductDto.cs" />
