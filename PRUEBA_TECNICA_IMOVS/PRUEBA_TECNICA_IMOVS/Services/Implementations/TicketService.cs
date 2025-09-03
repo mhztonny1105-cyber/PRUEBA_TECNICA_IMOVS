@@ -74,4 +74,7 @@ namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
                 Folio = FolioGenerator.GenerateTicketFolio(),
                 Status = TicketStatus.PorPagar,
                 Total = 0m,
-            }
+            };
+        }
+    }
+}
