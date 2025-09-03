@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace CompanyManagement.Api.Models.Entities
+namespace PRUEBA_TECNICA_IMOVS.Api.Models.Entities
 {
     public abstract class BaseEntity
     {

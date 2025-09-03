@@ -1,7 +1,7 @@
 using System;
 
 
-namespace CompanyManagement.Api
+namespace PRUEBA_TECNICA_IMOVS.Api
 {
     public static class FolioGenerator
     {

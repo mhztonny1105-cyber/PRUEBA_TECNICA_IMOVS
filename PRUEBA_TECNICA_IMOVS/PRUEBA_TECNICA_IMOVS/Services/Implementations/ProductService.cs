@@ -3,13 +3,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using CompanyManagement.Api.Data.Repositories;
-using CompanyManagement.Api.Models.DTOs;
-using CompanyManagement.Api.Models.Entities;
-using CompanyManagement.Api.Services.Contracts;
+using PRUEBA_TECNICA_IMOVS.Api.Data.Repositories;
+using PRUEBA_TECNICA_IMOVS.Api.Models.DTOs;
+using PRUEBA_TECNICA_IMOVS.Api.Models.Entities;
+using PRUEBA_TECNICA_IMOVS.Api.Services.Contracts;
 
 
-namespace CompanyManagement.Api.Services.Implementations
+namespace PRUEBA_TECNICA_IMOVS.Api.Services.Implementations
 {
     public class ProductService : IProductService
     {

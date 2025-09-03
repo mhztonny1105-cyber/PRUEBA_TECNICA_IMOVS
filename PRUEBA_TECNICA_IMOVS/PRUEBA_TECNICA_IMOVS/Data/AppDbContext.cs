@@ -1,8 +1,8 @@
 using System.Data.Entity;
-using CompanyManagement.Api.Models.Entities;
+using PRUEBA_TECNICA_IMOVS.Api.Models.Entities;
 
 
-namespace CompanyManagement.Api.Data
+namespace PRUEBA_TECNICA_IMOVS.Api.Data
 {
     public class AppDbContext : DbContext
     {

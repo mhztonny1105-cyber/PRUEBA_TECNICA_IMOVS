@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
 using System.Web.Http;
-using CompanyManagement.Api.Models.DTOs;
-using CompanyManagement.Api.Models.Responses;
-using CompanyManagement.Api.Services.Contracts;
+using PRUEBA_TECNICA_IMOVS.Api.Models.DTOs;
+using PRUEBA_TECNICA_IMOVS.Api.Models.Responses;
+using PRUEBA_TECNICA_IMOVS.Api.Services.Contracts;
 
 
-namespace CompanyManagement.Api.Controllers
+namespace PRUEBA_TECNICA_IMOVS.Api.Controllers
 {
     [RoutePrefix("api/tickets")]
     public class TicketsController : ApiController

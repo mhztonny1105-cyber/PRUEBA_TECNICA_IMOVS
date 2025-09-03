@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace CompanyManagement.Api.Data.Repositories
+namespace PRUEBA_TECNICA_IMOVS.Api.Data.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {

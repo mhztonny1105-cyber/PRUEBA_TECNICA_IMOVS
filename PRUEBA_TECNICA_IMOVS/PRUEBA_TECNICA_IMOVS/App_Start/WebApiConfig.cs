@@ -1,9 +1,9 @@
 ﻿using System.Web.Http;
-using CompanyManagement.Api.Configuration;
-using CompanyManagement.Api.Filters;
+using PRUEBA_TECNICA_IMOVS.Api.Configuration;
+using PRUEBA_TECNICA_IMOVS.Api.Filters;
 
 
-namespace CompanyManagement.Api
+namespace PRUEBA_TECNICA_IMOVS.Api
 {
     public static class WebApiConfig
     {

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace CompanyManagement.Api.Models.Entities
+namespace PRUEBA_TECNICA_IMOVS.Api.Models.Entities
 {
     public class TicketLine : BaseEntity
     {

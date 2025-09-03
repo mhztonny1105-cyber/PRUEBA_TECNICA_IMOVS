@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 
-namespace CompanyManagement.Api.Configuration
+namespace PRUEBA_TECNICA_IMOVS.Api.Configuration
 {
     public static class JsonConfig
     {

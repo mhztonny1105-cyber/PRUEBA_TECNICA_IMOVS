@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 
 
-namespace CompanyManagement.Api
+namespace PRUEBA_TECNICA_IMOVS.Api
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

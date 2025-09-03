@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CompanyManagement.Api.Models.Entities;
+using PRUEBA_TECNICA_IMOVS.Api.Models.Entities;
 
 
-namespace CompanyManagement.Api.Models.DTOs
+namespace PRUEBA_TECNICA_IMOVS.Api.Models.DTOs
 {
     public class TicketCreateDto
     {

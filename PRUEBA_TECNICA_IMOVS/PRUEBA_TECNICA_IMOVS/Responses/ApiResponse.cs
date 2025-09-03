@@ -1,4 +1,4 @@
-namespace CompanyManagement.Api.Models.Responses
+namespace PRUEBA_TECNICA_IMOVS.Api.Models.Responses
 {
     public class ApiResponse<T>
     {

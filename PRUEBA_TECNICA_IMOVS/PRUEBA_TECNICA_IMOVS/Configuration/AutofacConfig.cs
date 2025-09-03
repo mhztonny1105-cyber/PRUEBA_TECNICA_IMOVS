@@ -3,14 +3,14 @@ using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
 using AutoMapper;
-using CompanyManagement.Api.Data;
-using CompanyManagement.Api.Data.Repositories;
-using CompanyManagement.Api.Mapping;
-using CompanyManagement.Api.Services.Contracts;
-using CompanyManagement.Api.Services.Implementations;
+using PRUEBA_TECNICA_IMOVS.Api.Data;
+using PRUEBA_TECNICA_IMOVS.Api.Data.Repositories;
+using PRUEBA_TECNICA_IMOVS.Api.Mapping;
+using PRUEBA_TECNICA_IMOVS.Api.Services.Contracts;
+using PRUEBA_TECNICA_IMOVS.Api.Services.Implementations;
 
 
-namespace CompanyManagement.Api.Configuration
+namespace PRUEBA_TECNICA_IMOVS.Api.Configuration
 {
     public static class AutofacConfig
     {

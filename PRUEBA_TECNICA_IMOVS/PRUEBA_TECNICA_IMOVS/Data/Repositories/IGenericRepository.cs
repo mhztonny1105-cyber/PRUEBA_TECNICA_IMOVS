@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 
 
-namespace CompanyManagement.Api.Data.Repositories
+namespace PRUEBA_TECNICA_IMOVS.Api.Data.Repositories
 {
     public interface IGenericRepository<T> where T : class
     {

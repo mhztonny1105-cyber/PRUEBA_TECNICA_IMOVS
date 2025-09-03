@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CompanyManagement.Api.Models.DTOs;
+using PRUEBA_TECNICA_IMOVS.Api.Models.DTOs;
 
 
-namespace CompanyManagement.Api.Services.Contracts
+namespace PRUEBA_TECNICA_IMOVS.Api.Services.Contracts
 {
     public interface IProductService
     {

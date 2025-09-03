@@ -1,9 +1,9 @@
 using AutoMapper;
-using CompanyManagement.Api.Models.DTOs;
-using CompanyManagement.Api.Models.Entities;
+using PRUEBA_TECNICA_IMOVS.Api.Models.DTOs;
+using PRUEBA_TECNICA_IMOVS.Api.Models.Entities;
 
 
-namespace CompanyManagement.Api.Mapping
+namespace PRUEBA_TECNICA_IMOVS.Api.Mapping
 {
     public class MappingProfile : Profile
     {

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 
-namespace CompanyManagement.Api.Models.DTOs
+namespace PRUEBA_TECNICA_IMOVS.Api.Models.DTOs
 {
     public class ProductDto
     {
