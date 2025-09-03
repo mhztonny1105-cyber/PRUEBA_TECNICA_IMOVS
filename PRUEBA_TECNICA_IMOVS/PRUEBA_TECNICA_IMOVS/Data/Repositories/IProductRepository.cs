@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CompanyManagement.Api.Models.DTOs;
 
-namespace PRUEBA_TECNICA_IMOVS.Data.Repositories
+
+namespace CompanyManagement.Api.Services.Contracts
 {
-    internal interface IProductRepository
+    public interface IProductService
     {
+        Task<IEnumerable<ProductDto>> GetAllAsync();
+        Task<ProductDto> GetByIdAsync(int id);
+        Task<ProductDto> CreateAsync(ProductDto dto);
+        Task<ProductDto> UpdateAsync(int id, ProductDto dto);
+        Task DeleteAsync(int id);
     }
 }

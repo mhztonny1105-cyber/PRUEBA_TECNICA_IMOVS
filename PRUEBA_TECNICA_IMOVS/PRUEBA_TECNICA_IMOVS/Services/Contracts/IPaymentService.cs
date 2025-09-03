@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CompanyManagement.Api.Models.DTOs;
 
-namespace PRUEBA_TECNICA_IMOVS.Services.Contracts
+
+namespace CompanyManagement.Api.Services.Contracts
 {
-    internal interface IPaymentService
+    public interface IPaymentService
     {
+        Task<IEnumerable<PaymentDto>> GetAllAsync();
+        Task<PaymentDto> GetByIdAsync(int id);
+        Task<TicketDetailDto> CreateAsync(PaymentCreateDto dto); // retorna estado actualizado del Ticket
+        Task DeleteAsync(int id); // eliminar pago y recalcular ticket
     }
 }

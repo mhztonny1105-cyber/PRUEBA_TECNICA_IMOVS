@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CompanyManagement.Api.Models.DTOs;
 
-namespace PRUEBA_TECNICA_IMOVS.Services.Contracts
+
+namespace CompanyManagement.Api.Services.Contracts
 {
-    internal interface ITicketService
+    public interface ITicketService
     {
+        Task<IEnumerable<TicketListItemDto>> GetAllAsync();
+        Task<TicketDetailDto> GetByIdAsync(int id);
+        Task<TicketDetailDto> CreateAsync(TicketCreateDto dto);
+        Task<TicketDetailDto> UpdateAsync(int id /* futuro: dto encabezado */);
+        Task DeleteAsync(int id);
     }
 }
