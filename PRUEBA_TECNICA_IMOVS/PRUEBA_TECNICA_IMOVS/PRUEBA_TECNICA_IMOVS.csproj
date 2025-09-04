@@ -109,6 +109,8 @@
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\Entities\EntidadEjemplo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
+
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

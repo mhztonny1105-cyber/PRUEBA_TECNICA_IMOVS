@@ -1,24 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
-namespace PRUEBA_TECNICA_IMOVS
+public static class WebApiConfig
 {
-    public static class WebApiConfig
+    public static void Register(HttpConfiguration config)
     {
-        public static void Register(HttpConfiguration config)
-        {
-            // Configuración y servicios de Web API
+        // Habilitar rutas por atributos
+        config.MapHttpAttributeRoutes();
 
-            // Rutas de Web API
-            config.MapHttpAttributeRoutes();
+        // Ruta CONVENCIONAL: api/{controller}/{id}
+        config.Routes.MapHttpRoute(
+            name: "DefaultApi",
+            routeTemplate: "api/{controller}/{id}",
+            defaults: new { id = RouteParameter.Optional }
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-        }
+        );
+
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.ContractResolver =
+                new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+
+
     }
 }
