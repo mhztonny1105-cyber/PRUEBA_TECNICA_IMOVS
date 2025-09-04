@@ -123,7 +123,33 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Views\" />
+    <Folder Include="Services\" />
+    <Folder Include="DTOs\" />
   </ItemGroup>
+
+  <ItemGroup>
+  <!-- Controllers (si están en raíz) -->
+  <Compile Include="Controllers\ProductsController.cs" />
+  <Compile Include="Controllers\CustomersController.cs" />
+  <Compile Include="Controllers\TicketsController.cs" />
+
+  <!-- Services  -->
+  <Compile Include="Services\ProductServices.cs" />
+  <Compile Include="Services\CustomerService.cs" />
+  <Compile Include="Services\TicketService.cs" />
+
+  <!-- DTOs (dentro de App_Start) -->
+  <Compile Include="App_Start\DTOs\TicketDtos.cs" />
+
+  <!-- Entities -->
+  <Compile Include="Models\Entities\Product.cs" />
+  <Compile Include="Models\Entities\Customer.cs" />
+  <Compile Include="Models\Entities\Ticket.cs" />
+  <Compile Include="Models\Entities\TicketItem.cs" />
+  <Compile Include="Models\Entities\Payment.cs" />
+  <Compile Include="Models\Entities\TicketStatus.cs" />
+</ItemGroup>
+
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
