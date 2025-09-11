@@ -30,6 +30,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
+    <IntermediateOutputPath>obj\Debug\</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -95,6 +96,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DetalleTicketsController.cs" />
+    <Compile Include="Controllers\PagosController.cs" />
+    <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -105,8 +110,24 @@
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202509111915305_TablasIniciales.cs" />
+    <Compile Include="Migrations\202509111915305_TablasIniciales.Designer.cs">
+      <DependentUpon>202509111915305_TablasIniciales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202509112025462_AddCamposFaltantes.cs" />
+    <Compile Include="Migrations\202509112025462_AddCamposFaltantes.Designer.cs">
+      <DependentUpon>202509112025462_AddCamposFaltantes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202509112118469_FinalMigration.cs" />
+    <Compile Include="Migrations\202509112118469_FinalMigration.Designer.cs">
+      <DependentUpon>202509112118469_FinalMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context.cs" />
+    <Compile Include="Models\DetalleTicket.cs" />
+    <Compile Include="Models\Pago.cs" />
+    <Compile Include="Models\Producto.cs" />
+    <Compile Include="Models\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -120,8 +141,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202509111915305_TablasIniciales.resx">
+      <DependentUpon>202509111915305_TablasIniciales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202509112025462_AddCamposFaltantes.resx">
+      <DependentUpon>202509112025462_AddCamposFaltantes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202509112118469_FinalMigration.resx">
+      <DependentUpon>202509112118469_FinalMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
