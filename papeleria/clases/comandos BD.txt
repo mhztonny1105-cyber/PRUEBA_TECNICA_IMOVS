@@ -1,0 +1,368 @@
+create database vianey_pro_prueba;
+
+create table clientes(id_cliente int AUTO_INCREMENT primary key, nom_cliente varchar(50), apt_pat_clien varchar(50), apt_mat_clien varchar(50));
+
+create table empleados(id_empleado int AUTO_INCREMENT primary key, nom_empleado varchar(50), apt_pat_emp varchar(50), apt_mat_emp varchar(50));
+
+create table productos(id_producto int AUTO_INCREMENT primary key, nom_pro varchar(50), precio float);
+
+create table ventas(id_venta int AUTO_INCREMENT primary key, id_cliente int, id_producto int, id_empleado int, precio_u float, cantidad int, total float);
+
+CREATE TABLE bitacora (id INT AUTO_INCREMENT PRIMARY KEY,usuario VARCHAR(25), actividad VARCHAR(255), fecha_hora TIMESTAMP );
+
+------------Procedimientos almacenados CLLIENTES
+
+DELIMITER //
+CREATE PROCEDURE sp_ins_clien_vianey(nom varchar(50), aptp varchar(50), aptm varchar(50))
+BEGIN
+insert into clientes values(null, nom, aptp, aptm);
+END
+//
+
+DELIMITER //
+CREATE PROCEDURE spV_mod_clien(idu int, nom varchar(50), aptp varchar(50), aptm varchar(50))
+BEGIN
+UPDATE clientes SET nom_cliente = nom, apt_pat_clien=aptp, apt_mat_clien=aptm  WHERE id_cliente =idu;
+END 
+//
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE spV_eli_clien(ide int)
+BEGIN
+DELETE FROM clientes WHERE id_cliente=ide;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE spV_con_clientes()
+BEGIN 
+SELECT*FROM clientes;
+END//
+
+DELIMITER //
+CREATE PROCEDURE spV_con_cliente(nom varchar(50))
+BEGIN
+SELECT*FROM clientes WHERE nom_cliente LIKE nom;
+END//
+------------Procedimientos almacenados EMPLEADOS
+
+DELIMITER //
+CREATE PROCEDURE spV_ins_emp(nom varchar(50), aptp varchar(50), aptm varchar(50))
+BEGIN
+insert into empleados values(null, nom, aptp, aptm);
+END
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE spV_mod_emp(idu int, nom varchar(50), aptp varchar(50), aptm varchar(50))
+BEGIN
+UPDATE empleados SET nom_empleado = nom, apt_pat_emp=aptp, apt_mat_emp=aptm  WHERE id_empleado=idu;
+END 
+//
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE spV_eli_emp(ide int)
+BEGIN
+DELETE FROM empleados WHERE id_empleado=ide;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE spV_con_empleados()
+BEGIN 
+SELECT*FROM empleados;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE spV_con_empleado(nom varchar(50))
+BEGIN
+SELECT*FROM empleados WHERE nom_empleado LIKE nom;
+END//
+DELIMITER ;
+------------Procedimientos almacenados PRODUCTOS
+
+DELIMITER //
+CREATE PROCEDURE spV_ins_pro(nom varchar(50), pre float)
+BEGIN
+insert into productos values(null, nom, pre);
+END
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE spV_mod_pro(idu int, nom varchar(50), pre float)
+BEGIN
+UPDATE productos SET nom_pro = nom, precio=pre  WHERE id_producto =idu;
+END 
+//
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE spV_eli_pro(ide int)
+BEGIN
+DELETE FROM productos WHERE id_producto=ide;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE spV_con_productos()
+BEGIN 
+SELECT*FROM productos;
+END//
+
+DELIMITER //
+CREATE PROCEDURE spV_con_producto(nom varchar(50))
+BEGIN
+SELECT*FROM productos WHERE nom_pro LIKE nom;
+END//
+------------Procedimientos almacenados VENTAS
+
+DELIMITER //
+CREATE PROCEDURE spV_ins_ven(id_clie int, id_pro int, id_emp int, cant int)
+BEGIN
+insert into ventas values(null, id_clie, id_pro, id_emp, null, cant, null);
+END
+// 
+DELIMITER ;
+
+hacer un trigger para calcular el precio 
+
+DELIMITER //
+CREATE PROCEDURE spV_mod_ven(idu int, id_clie int, id_pro int, id_emp int, cant int)
+BEGIN
+UPDATE ventas SET id_cliente = id_clie, id_producto=id_pro, id_empleado=id_emp, cantidad= cant WHERE id_venta =idu;
+END 
+//
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE spV_eli_ven(ide int)
+BEGIN
+DELETE FROM ventas WHERE id_venta=ide;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE spV_con_ventas()
+BEGIN 
+Select nom_cliente,nom_pro,nom_empleado,precio_u,cantidad,total from ventas join clientes on ventas.id_cliente=clientes.id_cliente 
+join empleados on ventas.id_empleado=empleados.id_empleado join productos on ventas.id_producto=productos.id_producto;
+END//
+DELIMITER ;
+-----------bitacora
+DELIMITER //
+CREATE PROCEDURE sp_con_bitacora_vianey()
+BEGIN 
+SELECT*FROM bitacora;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_con_fecha_vianey(IN fecha_parametro DATE)
+BEGIN
+    SELECT * FROM bitacora WHERE DATE(fecha_hora) = fecha_parametro;
+END//
+DELIMITER ;
+
+------------Trigger venta
+DELIMITER //
+CREATE TRIGGER calcular_total_venta
+BEFORE INSERT ON ventas
+FOR EACH ROW
+BEGIN
+    DECLARE producto_precio DECIMAL(10,2);
+
+    -- Obtener el precio del producto desde la tabla productos
+    SELECT precio INTO producto_precio
+    FROM productos
+    WHERE id_producto = NEW.id_producto;
+
+    -- Calcular el total basado en la cantidad vendida y el precio del producto
+    SET NEW.total = NEW.cantidad * producto_precio;
+    SET NEW.precio_u = producto_precio;
+END;
+//
+DELIMITER ;
+-------------Trigger bitacora
+CREATE TABLE bitacora (id INT AUTO_INCREMENT PRIMARY KEY,usuario VARCHAR(25), actividad VARCHAR(255), fecha_hora TIMESTAMP );
+
+DELIMITER //
+
+CREATE TRIGGER insert_clien
+AFTER INSERT ON clientes FOR EACH ROW
+BEGIN
+    INSERT INTO bitacora (usuario, actividad, fecha_hora) 
+    VALUES (CURRENT_USER, 
+            CONCAT('Agregó al cliente: ', NEW.nom_cliente, ' ', NEW.apt_pat_clien, ' ', NEW.apt_mat_clien),
+            NOW()
+           );
+END;
+//
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE TRIGGER update_clien
+AFTER UPDATE ON clientes FOR EACH ROW
+BEGIN
+    INSERT INTO bitacora (usuario, actividad, fecha_hora) 
+    VALUES (CURRENT_USER, 
+            CONCAT('Modificó los datos del cliente: ',
+                    OLD.nom_cliente, ' ', OLD.apt_pat_clien, ' ', OLD.apt_mat_clien,
+                    ' a ', 
+                    NEW.nom_cliente, ' ', NEW.apt_pat_clien, ' ', NEW.apt_mat_clien),
+            NOW()
+           );
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER delete_clien
+AFTER DELETE ON clientes FOR EACH ROW
+BEGIN
+    INSERT INTO bitacora (usuario, actividad, fecha_hora) 
+    VALUES (CURRENT_USER(), CONCAT('Eliminó al cliente: ', OLD.id_cliente, '.', OLD.nom_cliente, ' ', OLD.apt_pat_clien, ' ', OLD.apt_mat_clien), NOW());
+END;
+//
+DELIMITER ;
+
+-----------------------------Triggers tabla empleados
+
+DELIMITER //
+CREATE TRIGGER insert_emp
+AFTER INSERT ON empleados FOR EACH ROW
+BEGIN
+    INSERT INTO bitacora (usuario, actividad, fecha_hora) 
+    VALUES (CURRENT_USER, 
+            CONCAT('Agregó al empleado: ', NEW.nom_empleado, ' ', NEW.apt_pat_emp, ' ', NEW.apt_mat_emp),
+            NOW()
+           );
+END//
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER update_emp
+AFTER UPDATE ON empleados FOR EACH ROW
+BEGIN
+    INSERT INTO bitacora (usuario, actividad, fecha_hora) 
+    VALUES (CURRENT_USER, 
+            CONCAT('Modificó los datos del empleado: ',
+                    OLD.nom_empleado, ' ', OLD.apt_pat_emp, ' ', OLD.apt_mat_emp,
+                    ' a ', 
+                    NEW.nom_empleado, ' ', NEW.apt_pat_emp, ' ', NEW.apt_mat_emp),
+            NOW()
+           );
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER delete_emp
+AFTER DELETE ON empleados FOR EACH ROW
+BEGIN
+    INSERT INTO bitacora (usuario, actividad, fecha_hora) 
+    VALUES (CURRENT_USER(), CONCAT('Eliminó al empleado: ', OLD.id_empleado, ' . ', OLD.nom_empleado,' ', OLD.apt_pat_emp, ' ', OLD.apt_mat_emp), NOW());
+END
+//
+DELIMITER ;
+-----------------------------Triggers tabla productos
+
+DELIMITER //
+CREATE TRIGGER insert_pro
+AFTER INSERT ON productos FOR EACH ROW
+BEGIN
+    INSERT INTO bitacora (usuario, actividad, fecha_hora) 
+    VALUES (CURRENT_USER, 
+            CONCAT('Agregó el producto: ', NEW.nom_pro, ' con el precio de: ', NEW.precio),
+            NOW()
+           );
+END; //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER update_pro
+AFTER UPDATE ON productos FOR EACH ROW
+BEGIN
+    INSERT INTO bitacora (usuario, actividad, fecha_hora) 
+    VALUES (CURRENT_USER, 
+            CONCAT('Modificó los datos del producto: ',
+                    OLD.nom_pro, ' ', OLD.precio, 
+                    ' a ', 
+                    NEW.nom_pro, ' ', NEW.precio),
+            NOW()
+           );
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER delete_pro
+AFTER DELETE ON productos FOR EACH ROW
+BEGIN
+    INSERT INTO bitacora (usuario, actividad, fecha_hora) 
+    VALUES (CURRENT_USER(), CONCAT('Eliminó el producto: ', OLD.id_producto, ' . ', OLD.nom_pro,), NOW());
+END;
+//
+DELIMITER ;
+-----------------------------Triggers tabla venta no se han probado 
+
+DELIMITER //
+CREATE TRIGGER insert_ven
+AFTER INSERT ON ventas FOR EACH ROW
+BEGIN
+    INSERT INTO bitacora (usuario, actividad, fecha_hora) 
+    VALUES (CURRENT_USER, 
+            CONCAT('Agregó una nueva venta: ', NEW.nom_empleado, ' ', NEW.apt_pat_emp, ' ', NEW.apt_mat_emp),
+            NOW()
+           );
+END; //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER update_emp
+AFTER UPDATE ON empleados FOR EACH ROW
+BEGIN
+    INSERT INTO bitacora (usuario, actividad, fecha_hora) 
+    VALUES (CURRENT_USER, 
+            CONCAT('Modificó los datos del empleado: ',
+                    OLD.nom_empleado, ' ', OLD.apt_pat_emp, ' ', OLD.apt_mat_emp,
+                    ' a ', 
+                    NEW.nom_empleado, ' ', NEW.apt_pat_emp, ' ', NEW.apt_mat_emp),
+            NOW()
+           );
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER delete_emp
+AFTER DELETE ON empleados FOR EACH ROW
+BEGIN
+    INSERT INTO bitacora (usuario, actividad, fecha_hora) 
+    VALUES (CURRENT_USER(), CONCAT('Eliminó al empleado: ', OLD.id_empleado, ' . ', OLD.nom_empleado,' ', OLD.apt_pat_emp, ' ', OLD.apt_mat_emp), NOW());
+END;
+//
+DELIMITER ;
+
+
+
+------------Usuario Local
+
+CREATE USER 'vianey'@'%' IDENTIFIED BY '123';
+GRANT ALL PRIVILEGES ON *.* TO 'vianey'@'%' IDENTIFIED BY '123' WHIT GRANT OPTION;
+
+CREATE USER 'empleado'@'%' IDENTIFIED BY '123';
