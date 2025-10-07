@@ -95,6 +95,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\OrderItemsController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -114,10 +116,23 @@
     <Compile Include="Migrations\202510070148325_CreationModelsOrder.Designer.cs">
       <DependentUpon>202510070148325_CreationModelsOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202510070257011_CorrectionModelOrder.cs" />
+    <Compile Include="Migrations\202510070257011_CorrectionModelOrder.Designer.cs">
+      <DependentUpon>202510070257011_CorrectionModelOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202510070307524_CorrectionModelOrder2.cs" />
+    <Compile Include="Migrations\202510070307524_CorrectionModelOrder2.Designer.cs">
+      <DependentUpon>202510070307524_CorrectionModelOrder2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202510070324323_CreationModelPayments.cs" />
+    <Compile Include="Migrations\202510070324323_CreationModelPayments.Designer.cs">
+      <DependentUpon>202510070324323_CreationModelPayments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Payments.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -140,6 +155,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202510070148325_CreationModelsOrder.resx">
       <DependentUpon>202510070148325_CreationModelsOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510070257011_CorrectionModelOrder.resx">
+      <DependentUpon>202510070257011_CorrectionModelOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510070307524_CorrectionModelOrder2.resx">
+      <DependentUpon>202510070307524_CorrectionModelOrder2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510070324323_CreationModelPayments.resx">
+      <DependentUpon>202510070324323_CreationModelPayments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

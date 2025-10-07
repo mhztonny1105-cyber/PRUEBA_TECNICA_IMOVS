@@ -13,10 +13,12 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public DateTime OrderDate { get; set; }
-        public string CustomerName { get; set; }
+        public DateTime OrderDate { get; set; } = DateTime.UtcNow;
         public List<OrderItem> Items { get; set; }
         public decimal TotalAmount => Items.Sum(item => item.TotalPrice);
         public string Status { get; set; } = "Pending";
+
+        public int PaysQuantity { get; set; } = 1;
+        public int PaysRemaining { get; set; } = 1;
     }
 }
