@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -109,8 +110,14 @@
     <Compile Include="Migrations\202510070112470_CreationModelProducts.Designer.cs">
       <DependentUpon>202510070112470_CreationModelProducts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202510070148325_CreationModelsOrder.cs" />
+    <Compile Include="Migrations\202510070148325_CreationModelsOrder.Designer.cs">
+      <DependentUpon>202510070148325_CreationModelsOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context.cs" />
+    <Compile Include="Models\OrderItem.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -125,12 +132,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202510070112470_CreationModelProducts.resx">
       <DependentUpon>202510070112470_CreationModelProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510070148325_CreationModelsOrder.resx">
+      <DependentUpon>202510070148325_CreationModelsOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -13,6 +13,8 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         }
 
         public DbSet<Products> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
