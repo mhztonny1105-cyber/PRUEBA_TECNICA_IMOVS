@@ -47,6 +47,9 @@ namespace PRUEBA_TECNICA_IMOVS.Controllers
                     if (product == null)
                         return BadRequest($"Producto con Id {item.ProductId.Id} no existe.");
 
+                    if (product.Stock < item.Quantity)
+                        return BadRequest($"No hay suficiente stock para el producto {product.Name}.");
+
                     if (item.Quantity <= 0)
                         return BadRequest("La cantidad debe ser mayor a cero.");
 
@@ -54,7 +57,17 @@ namespace PRUEBA_TECNICA_IMOVS.Controllers
                     item.UnitPrice = product.Price;
                 }
             }
+            order.TotalAmount = order.Items.Sum(i => i.TotalPrice);
 
+            var FirstPayment = new Payments
+            {
+                OrderId = order,
+                Amount = order.TotalAmount / order.PaysQuantity,
+                PaymentNumber = 1,
+                RemainingAmount = order.TotalAmount - (order.TotalAmount / order.PaysQuantity)
+            };
+
+            db.Payments.Add(FirstPayment);
             db.Orders.Add(order);
             db.SaveChanges();
 

@@ -15,7 +15,8 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         public int Id { get; set; }
         public DateTime OrderDate { get; set; } = DateTime.UtcNow;
         public List<OrderItem> Items { get; set; }
-        public decimal TotalAmount => Items.Sum(item => item.TotalPrice);
+        public decimal TotalAmount { get; set; }
+
         public string Status { get; set; } = "Pending";
 
         public int PaysQuantity { get; set; } = 1;

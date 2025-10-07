@@ -97,6 +97,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\OrderItemsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -127,6 +128,10 @@
     <Compile Include="Migrations\202510070324323_CreationModelPayments.cs" />
     <Compile Include="Migrations\202510070324323_CreationModelPayments.Designer.cs">
       <DependentUpon>202510070324323_CreationModelPayments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202510070341361_CorrectionOrderModel.cs" />
+    <Compile Include="Migrations\202510070341361_CorrectionOrderModel.Designer.cs">
+      <DependentUpon>202510070341361_CorrectionOrderModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context.cs" />
@@ -164,6 +169,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202510070324323_CreationModelPayments.resx">
       <DependentUpon>202510070324323_CreationModelPayments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510070341361_CorrectionOrderModel.resx">
+      <DependentUpon>202510070341361_CorrectionOrderModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
