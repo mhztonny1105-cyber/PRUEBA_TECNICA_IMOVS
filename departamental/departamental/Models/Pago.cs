@@ -15,7 +15,7 @@ namespace departamental.Models
         [Required]
         public int TicketId { get; set; }
 
-        [ForeignKey("TicketId"]
+        [ForeignKey("TicketId")]
         public virtual Ticket Ticket { get; set; }
 
         [Required]
