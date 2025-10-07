@@ -28,7 +28,6 @@ namespace departamental.Models
         public DateTime FechaDePago { get; set; } = DateTime.Now;
 
         [Required]
-        [Column(TypeName = "decimal(10,2")]
         public decimal Monto { get; set; }
 
     }

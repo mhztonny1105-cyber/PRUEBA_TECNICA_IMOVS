@@ -16,7 +16,6 @@ namespace departamental.Models
         public string Nombre { get; set; }
 
         [Required]
-        [Column(TypeName ="decimal(10,2")]
         public decimal PrecioUnitario { get; set; }
 
         [Required]
