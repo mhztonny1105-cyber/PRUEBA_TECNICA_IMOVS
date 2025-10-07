@@ -12,6 +12,8 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         {
         }
 
+        public DbSet<Products> Products { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
