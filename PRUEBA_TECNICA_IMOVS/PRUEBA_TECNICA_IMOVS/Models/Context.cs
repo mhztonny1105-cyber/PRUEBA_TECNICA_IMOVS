@@ -1,19 +1,14 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Linq;
+using PRUEBA_TECNICA_IMOVS.Models.Entities;
 
-namespace PRUEBA_TECNICA_IMOVS.Models
-{
-    public partial class Context : DbContext
-    {
-        public Context()
-            : base("name=Context")
-        {
+namespace PRUEBA_TECNICA_IMOVS.Models {
+    public class Context : DbContext {
+        public Context() : base("DefaultConnection") {
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-        }
+        public DbSet<Producto> Productos { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketDetalle> TicketDetalles { get; set; }
+        public DbSet<Pago> Pagos { get; set; }
     }
 }
