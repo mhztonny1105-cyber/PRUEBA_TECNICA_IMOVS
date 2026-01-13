@@ -112,6 +112,8 @@
     <Compile Include="Models\Entitie´s\Ticket.cs" />
     <Compile Include="Models\Entitie´s\TicketDetalle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Implementations\TicketService.cs" />
+    <Compile Include="Services\Interfaces\ITicketServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
