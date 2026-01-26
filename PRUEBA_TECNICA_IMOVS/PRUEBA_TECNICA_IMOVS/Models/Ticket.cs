@@ -10,6 +10,7 @@ namespace PRUEBA_TECNICA_IMOVS.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int TicketId { get; set; }
 
         [Required]
         [StringLength(20)]
