@@ -32,7 +32,7 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         [StringLength(500)]
         public string Observaciones { get; set; }
 
-        // Relación
+
         [ForeignKey("TicketId")]
         public virtual Ticket Ticket { get; set; }
 
