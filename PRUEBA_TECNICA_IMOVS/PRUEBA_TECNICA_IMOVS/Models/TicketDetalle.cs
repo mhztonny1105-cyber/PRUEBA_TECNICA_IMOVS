@@ -21,7 +21,6 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         public int Cantidad { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
         public decimal PrecioUnitario { get; set; }
 
         [NotMapped]

@@ -1,15 +1,18 @@
 ﻿namespace PRUEBA_TECNICA_IMOVS.Migrations
 {
+    using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<PRUEBA_TECNICA_IMOVS.Models.Context>
+    internal sealed class Configuration : DbMigrationsConfiguration<PRUEBA_TECNICA_IMOVS.Models.AppDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(PRUEBA_TECNICA_IMOVS.Models.Context context)
+        protected override void Seed(PRUEBA_TECNICA_IMOVS.Models.AppDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

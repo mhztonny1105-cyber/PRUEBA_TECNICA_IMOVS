@@ -22,11 +22,9 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         public DateTime? FechaLiquidacion { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
         public decimal MontoTotal { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
         public decimal MontoPagado { get; set; } = 0;
 
         [NotMapped]

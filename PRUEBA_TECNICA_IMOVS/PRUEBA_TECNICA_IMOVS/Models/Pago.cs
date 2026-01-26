@@ -22,7 +22,6 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         public int NumeroPago { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
         [Range(0.01, double.MaxValue, ErrorMessage = "El monto debe ser mayor a 0")]
         public decimal Monto { get; set; }
 

@@ -19,7 +19,6 @@ namespace PRUEBA_TECNICA_IMOVS.Models
 
         [Required]
         [Range(0.01, double.MaxValue, ErrorMessage = "El precio debe ser mayor a 0")]
-        [Column(TypeName = "decimal(18,2)")]
         public decimal PrecioUnitario { get; set; }
 
         [Required]
