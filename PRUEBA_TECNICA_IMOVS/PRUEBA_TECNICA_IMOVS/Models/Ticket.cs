@@ -34,12 +34,10 @@ namespace PRUEBA_TECNICA_IMOVS.Models
 
         [Required]
         [StringLength(20)]
-        public string Estatus { get; set; } = "PorPagar"; // "PorPagar" o "Pagado"
+        public string Estatus { get; set; } = "PorPagar";
 
         [StringLength(100)]
         public string Cliente { get; set; }
-
-        // Relaciones
         public virtual ICollection<TicketDetalle> Detalles { get; set; }
         public virtual ICollection<Pago> Pagos { get; set; }
 
