@@ -14,7 +14,7 @@ namespace PRUEBA_TECNICA_IMOVS.Controllers
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Create(CreateTicketDto dto)
+        public IHttpActionResult CreateTickets(CreateTicketDto dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -60,7 +60,7 @@ namespace PRUEBA_TECNICA_IMOVS.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        public IHttpActionResult GetById(int id)
+        public IHttpActionResult GetTicketsById(int id)
         {
             var ticket = _context.Tickets
                 .Include("Details")

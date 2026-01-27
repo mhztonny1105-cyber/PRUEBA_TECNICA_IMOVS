@@ -13,7 +13,7 @@ namespace PRUEBA_TECNICA_IMOVS.Controllers
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Create(CreatePaymentDto dto)
+        public IHttpActionResult CreatePayments(CreatePaymentDto dto)
         {
             if (dto == null || dto.Amount <= 0)
                 return BadRequest("Invalid payment data.");
@@ -60,7 +60,7 @@ namespace PRUEBA_TECNICA_IMOVS.Controllers
 
         [HttpGet]
         [Route("ticket/{ticketId:int}")]
-        public IHttpActionResult GetByTicket(int ticketId)
+        public IHttpActionResult GetPaymentsByTicket(int ticketId)
         {
             var payments = _context.Payments
                 .Where(p => p.TicketId == ticketId)
