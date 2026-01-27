@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,5 +27,6 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         [ForeignKey ("ProductId")]
         public virtual Product Product { get; set; }
 
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PRUEBA_TECNICA_IMOVS.Models
@@ -16,5 +17,7 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         
         [Required]
         public bool IsActive { get; set; } = true;
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

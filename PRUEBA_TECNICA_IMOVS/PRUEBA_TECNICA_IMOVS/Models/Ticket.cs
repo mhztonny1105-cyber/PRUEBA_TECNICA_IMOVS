@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PRUEBA_TECNICA_IMOVS.Models
@@ -18,5 +19,6 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         public decimal PendingAmount { get; set; }
 
         public TicketStatus Status { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
