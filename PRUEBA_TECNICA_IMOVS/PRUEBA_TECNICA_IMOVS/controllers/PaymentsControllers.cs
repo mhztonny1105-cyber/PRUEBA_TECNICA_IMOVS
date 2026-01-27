@@ -64,7 +64,7 @@ namespace PRUEBA_TECNICA_IMOVS.Controllers
         {
             var payments = _context.Payments
                 .Where(p => p.TicketId == ticketId)
-                .OrderBy(p => p.PaymentNumber)
+                .OrderByDescending(p => p.PaymentDate)
                 .ToList();
 
             return Ok(payments);
