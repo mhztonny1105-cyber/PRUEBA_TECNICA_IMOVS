@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PRUEBA_TECNICA_IMOVS.Models
@@ -23,5 +24,8 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         [Required]
         public TicketStatus Status { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        public virtual ICollection<TicketDetail> Details { get; set; }
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }
