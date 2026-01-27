@@ -21,6 +21,9 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         [Required]
         public decimal UnitPrice { get; set; }
 
+        [Required]
+        public decimal Total { get; set; }
+
         [ForeignKey ("TicketId")]
         public virtual Ticket Ticket { get; set; }
 
