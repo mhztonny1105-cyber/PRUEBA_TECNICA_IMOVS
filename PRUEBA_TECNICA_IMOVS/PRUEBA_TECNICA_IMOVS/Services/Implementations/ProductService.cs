@@ -32,7 +32,7 @@ namespace PRUEBA_TECNICA_IMOVS.Services.Implementations
 
         public ProductResponseDto GetById(Guid id)
         {
-            return context.Products
+            var product = context.Products
                 .Where(p => p.Id == id && p.IsActive)
                 .Select(p => new ProductResponseDto
                 {
@@ -41,27 +41,40 @@ namespace PRUEBA_TECNICA_IMOVS.Services.Implementations
                     Price = p.Price
                 })
                 .FirstOrDefault();
+
+            if (product == null)
+                throw new KeyNotFoundException("Producto no encontrado");
+
+            return product;
         }
 
         public void Create(ProductCreateDto dto)
         {
-            var product = new Product
+            try
             {
-                Id = Guid.NewGuid(),
-                Name = dto.Name,
-                Price = dto.Price,
-                IsActive = true
-            };
+                var product = new Product
+                {
+                    Id = Guid.NewGuid(),
+                    Name = dto.Name,
+                    Price = dto.Price,
+                    IsActive = true
+                };
 
-            context.Products.Add(product);
-            context.SaveChanges();
+                context.Products.Add(product);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al crear el producto", ex);
+            }
         }
 
         public void Update(Guid id, ProductCreateDto dto)
         {
             var product = context.Products.Find(id);
+
             if (product == null || !product.IsActive)
-                return;
+                throw new KeyNotFoundException("Producto no encontrado");
 
             product.Name = dto.Name;
             product.Price = dto.Price;
@@ -72,8 +85,9 @@ namespace PRUEBA_TECNICA_IMOVS.Services.Implementations
         public void Delete(Guid id)
         {
             var product = context.Products.Find(id);
+
             if (product == null)
-                return;
+                throw new KeyNotFoundException("Producto no encontrado");
 
             product.IsActive = false;
             context.SaveChanges();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PRUEBA_TECNICA_IMOVS.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -10,7 +11,8 @@ namespace PRUEBA_TECNICA_IMOVS
     {
         public static void Register(HttpConfiguration config)
         {
-            // Configuración y servicios de Web API
+            config.Filters.Add(new GlobalExceptionFilter());
+
 
             // Rutas de Web API
             config.MapHttpAttributeRoutes();

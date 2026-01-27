@@ -32,17 +32,17 @@ namespace PRUEBA_TECNICA_IMOVS.Controllers
         public IHttpActionResult GetById(Guid id)
         {
             var product = _service.GetById(id);
-            if (product == null)
-                return NotFound();
-
             return Ok(ApiResponse<object>.Ok(product));
         }
 
         // POST api/products
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Create(ProductCreateDto dto)
+        public IHttpActionResult Create([FromBody] ProductCreateDto dto)
         {
+            if (dto == null)
+                return BadRequest("El body es obligatorio");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -57,14 +57,13 @@ namespace PRUEBA_TECNICA_IMOVS.Controllers
         // PUT api/products/{id}
         [HttpPut]
         [Route("{id:guid}")]
-        public IHttpActionResult Update(Guid id, ProductCreateDto dto)
+        public IHttpActionResult Update(Guid id, [FromBody] ProductCreateDto dto)
         {
+            if (dto == null)
+                return BadRequest("El body es obligatorio");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            var exists = _service.GetById(id);
-            if (exists == null)
-                return NotFound();
 
             _service.Update(id, dto);
 
@@ -76,10 +75,6 @@ namespace PRUEBA_TECNICA_IMOVS.Controllers
         [Route("{id:guid}")]
         public IHttpActionResult Delete(Guid id)
         {
-            var exists = _service.GetById(id);
-            if (exists == null)
-                return NotFound();
-
             _service.Delete(id);
 
             return Ok(ApiResponse<string>.Ok(null, "Producto eliminado"));
