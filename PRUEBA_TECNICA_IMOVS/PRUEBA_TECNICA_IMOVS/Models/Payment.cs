@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,6 +25,7 @@ namespace PRUEBA_TECNICA_IMOVS.Models
 
         public DateTime PaymentDate { get; set; } = DateTime.Now;
 
+        [JsonIgnore]
         [ForeignKey ("TicketId")]
         public virtual Ticket Ticket { get; set; }
     }
