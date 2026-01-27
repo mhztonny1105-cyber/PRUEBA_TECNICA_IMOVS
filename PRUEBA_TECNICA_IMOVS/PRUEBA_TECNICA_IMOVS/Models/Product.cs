@@ -22,7 +22,6 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         [Required]
         public decimal Price { get; set; }
         
-        [Required]
         public bool IsActive { get; set; } = true;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
