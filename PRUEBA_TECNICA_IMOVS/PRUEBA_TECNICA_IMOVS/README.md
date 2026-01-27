@@ -1,7 +1,8 @@
 # PRUEBA TÉCNICA IMOVS
 
-API REST para manejo de productos, tickets y pagos, desarrollada con ASP.NET Web API y Entity Framework (Code First).  
-El backend permite crear tickets de venta, registrar pagos parciales o totales y controlar el estado del ticket automáticamente.
+API REST para manejo de productos, tickets y pagos, desarrollada con ASP.NET Web API y Entity Framework (Code First).
+
+El backend permite crear tickets de venta, registrar pagos parciales o totales y actualizar automáticamente el estado del ticket según los pagos realizados.
 
 ---
 
@@ -18,9 +19,10 @@ El backend permite crear tickets de venta, registrar pagos parciales o totales y
 ## Modelos
 
 ### Product
+
 Representa los productos disponibles para venta.
 
-Campos principales:
+Campos:
 - Id
 - Sku
 - Name
@@ -32,9 +34,10 @@ Campos principales:
 ---
 
 ### Ticket
+
 Representa un ticket de venta.
 
-Campos principales:
+Campos:
 - Id
 - Folio
 - TotalAmount
@@ -45,14 +48,15 @@ Campos principales:
 - Details
 - Payments
 
-El ticket inicia con estado Pending y cambia según los pagos registrados.
+El ticket se crea con estado Pending y cambia automáticamente según los pagos.
 
 ---
 
 ### TicketDetail
-Detalle de los productos dentro de un ticket.
 
-Campos principales:
+Detalle de los productos asociados a un ticket.
+
+Campos:
 - Id
 - TicketId
 - ProductId
@@ -64,9 +68,10 @@ Campos principales:
 ---
 
 ### Payment
+
 Representa un pago aplicado a un ticket.
 
-Campos principales:
+Campos:
 - Id
 - TicketId
 - Folio
@@ -82,13 +87,14 @@ Cada pago guarda su número consecutivo y su propio folio.
 
 1. Se crean productos activos.
 2. Se crea un ticket con uno o más productos.
-3. El total del ticket se calcula automáticamente.
+3. El total del ticket se calcula automáticamente a partir de los detalles.
 4. El ticket inicia con PendingAmount igual al total.
 5. Se registran pagos:
    - Si el pago es parcial, el ticket pasa a InProgress.
    - Si el pago liquida el total, el ticket pasa a Paid y se guarda la fecha de liquidación.
-6. No se permiten pagos mayores al monto pendiente ni pagos a tickets ya pagados.
-7. El historial de pagos se obtiene ordenado del más reciente al más antiguo.
+6. No se permiten pagos mayores al monto pendiente.
+7. No se permiten pagos a tickets ya pagados.
+8. El historial de pagos se devuelve ordenado del más reciente al más antiguo.
 
 ---
 
@@ -114,7 +120,7 @@ GET /api/products/{id}
 
 ---
 
-### Tickets
+Tickets
 
 Crear ticket  
 POST /api/tickets
@@ -137,7 +143,7 @@ Incluye los detalles del ticket y los pagos asociados.
 
 ---
 
-### Pagos
+Pagos
 
 Registrar pago  
 POST /api/payments
@@ -155,18 +161,21 @@ Los pagos se devuelven ordenados del más reciente al más antiguo.
 
 ---
 
-## Base de datos
+Base de datos
 
-La base de datos se genera automáticamente usando Entity Framework Code First.  
-Solo es necesario configurar la cadena de conexión en el archivo Web.config.
+La base de datos se genera automáticamente usando Entity Framework Code First.
+
+Solo es necesario configurar la cadena de conexión en el archivo Web.config.  
+No es necesario crear manualmente tablas en SQL Server.
 
 ---
 
-## Notas finales
+Notas finales
 
-- Cada ticket y cada pago tienen su propio folio.
-- Se guarda la fecha de creación del ticket y la fecha de liquidación.
-- El estado del ticket se actualiza automáticamente según los pagos.
-- Se evita la serialización circular usando JsonIgnore.
+Cada ticket y cada pago tienen su propio folio.
 
+Se guarda la fecha de creación del ticket y la fecha de liquidación.
 
+El estado del ticket se actualiza automáticamente según los pagos.
+
+Se evita la serialización circular usando JsonIgnore.
