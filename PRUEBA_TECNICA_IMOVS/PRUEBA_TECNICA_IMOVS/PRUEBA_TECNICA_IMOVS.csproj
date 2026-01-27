@@ -110,11 +110,26 @@
     </Compile>
     <Compile Include="Migrations\Config.cs" />
     <Compile Include="Models\Context.cs" />
+    <Compile Include="Models\Dtos\PaymentCreateDto.cs" />
+    <Compile Include="Models\Dtos\PaymentResponseDto.cs" />
+    <Compile Include="Models\Dtos\ProductCreateDto.cs" />
+    <Compile Include="Models\Dtos\ProductResponseDto.cs.cs" />
+    <Compile Include="Models\Dtos\TicketCreateDto.cs" />
+    <Compile Include="Models\Dtos\TicketDetailCreateDto.cs" />
+    <Compile Include="Models\Dtos\TicketDetailResponseDto.cs" />
+    <Compile Include="Models\Dtos\TicketResponseDto.cs" />
     <Compile Include="Models\Entities\Payment.cs" />
     <Compile Include="Models\Entities\Product.cs" />
     <Compile Include="Models\Entities\Ticket.cs" />
     <Compile Include="Models\Entities\TicketDetail.cs" />
+    <Compile Include="Models\Responses\ApiResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Implementations\PaymentService.cs" />
+    <Compile Include="Services\Implementations\ProductService.cs" />
+    <Compile Include="Services\Implementations\TicketService.cs" />
+    <Compile Include="Services\Interfaces\IPaymentService.cs" />
+    <Compile Include="Services\Interfaces\IProductService.cs" />
+    <Compile Include="Services\Interfaces\ITicketService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
