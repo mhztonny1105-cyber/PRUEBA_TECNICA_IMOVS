@@ -1,7 +1,7 @@
 using PRUEBA_TECNICA_IMOVS.Models;
-
-using System.Web.Http;
 using System.Linq;
+using System.Net;
+using System.Web.Http;
 
 namespace PRUEBA_TECNICA_IMOVS.Controllers
 {
@@ -56,5 +56,40 @@ namespace PRUEBA_TECNICA_IMOVS.Controllers
             });
         }
 
+        [HttpPut]
+        [Route("{id:int}")]
+        public IHttpActionResult Update(int id, Product model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var product = _context.Products.Find(id);
+
+            if (product == null)
+                return NotFound();
+
+            product.Name = model.Name;
+            product.Price = model.Price;
+            product.IsActive = model.IsActive;
+
+            _context.SaveChanges();
+
+            return Ok(product);
+        }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public IHttpActionResult Delete(int id)
+        {
+            var product = _context.Products.Find(id);
+
+            if (product == null)
+                return NotFound();
+
+            product.IsActive = false;
+            _context.SaveChanges();
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
     }
 }
