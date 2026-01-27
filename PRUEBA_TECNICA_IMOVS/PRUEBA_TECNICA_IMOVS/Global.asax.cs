@@ -14,6 +14,9 @@ namespace PRUEBA_TECNICA_IMOVS
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
             RouteTable.Routes.MapPageRoute("Default", "", "~/Index.aspx");
+
+            UnityConfig.RegisterComponents();
+
         }
     }
 }
