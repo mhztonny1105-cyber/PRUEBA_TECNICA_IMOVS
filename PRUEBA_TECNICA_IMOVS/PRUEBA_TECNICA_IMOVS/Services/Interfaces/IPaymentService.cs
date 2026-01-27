@@ -1,17 +1,13 @@
-﻿using PRUEBA_TECNICA_IMOVS.Models.DTOs;
-using PRUEBA_TECNICA_IMOVS.Models.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PRUEBA_TECNICA_IMOVS.Models.DTOs;
 
 namespace PRUEBA_TECNICA_IMOVS.Services.Interfaces
 {
     public interface IPaymentService
     {
-
-        Payment Register(PaymentCreateDto dto);
-
+        IEnumerable<PaymentResponseDto> GetByTicket(Guid ticketId);
+        PaymentResponseDto GetById(Guid id);
+        void Create(PaymentCreateDto dto);
     }
 }

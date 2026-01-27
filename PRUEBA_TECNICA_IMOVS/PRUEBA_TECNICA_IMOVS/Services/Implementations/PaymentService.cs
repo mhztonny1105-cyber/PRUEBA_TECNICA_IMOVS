@@ -1,71 +1,75 @@
-
-
-
-
 using PRUEBA_TECNICA_IMOVS.Models;
 using PRUEBA_TECNICA_IMOVS.Models.DTOs;
 using PRUEBA_TECNICA_IMOVS.Models.Entities;
 using PRUEBA_TECNICA_IMOVS.Services.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PRUEBA_TECNICA_IMOVS.Services.Implementations
 {
-
-
     public class PaymentService : IPaymentService
     {
         private readonly Context context;
 
         public PaymentService(Context context)
         {
-            context = context;
+            this.context = context;
         }
 
-        public Payment Register(PaymentCreateDto dto)
+        public IEnumerable<PaymentResponseDto> GetByTicket(Guid ticketId)
         {
-            var ticket = context.Tickets
-                .Include("Payments")
-                .FirstOrDefault(t => t.Id == dto.TicketId);
+            return context.Payments
+                .Where(p => p.TicketId == ticketId)
+                .Select(p => new PaymentResponseDto
+                {
+                    Id = p.Id,
+                    Folio = p.Folio,
+                    PaymentNumber = p.PaymentNumber,
+                    Amount = p.Amount,
+                    CreatedAt = p.PaymentDate
+                })
+                .ToList();
+        }
 
+        public PaymentResponseDto GetById(Guid id)
+        {
+            var payment = context.Payments.Find(id);
+
+            if (payment == null)
+                throw new KeyNotFoundException("Payment not found");
+
+            return new PaymentResponseDto
+            {
+                Id = payment.Id,
+                Folio = payment.Folio,
+                PaymentNumber = payment.PaymentNumber,
+                Amount = payment.Amount,
+                CreatedAt = payment.PaymentDate
+            };
+        }
+
+        public void Create(PaymentCreateDto dto)
+        {
+            var ticket = context.Tickets.Find(dto.TicketId);
             if (ticket == null)
-                throw new Exception("Ticket no encontrado");
+                throw new KeyNotFoundException("Ticket not found");
 
-            if (ticket.Status == TicketStatus.Pagado)
-                throw new Exception("El ticket ya está liquidado");
-
-            if (dto.Amount > ticket.PendingAmount)
-                throw new Exception("El monto excede el saldo pendiente");
-
-            var paymentNumber = ticket.Payments.Count + 1;
+            var nextPaymentNumber = context.Payments
+                .Count(p => p.TicketId == dto.TicketId) + 1;
 
             var payment = new Payment
             {
                 Id = Guid.NewGuid(),
-                TicketId = ticket.Id,
-                PaymentNumber = paymentNumber,
-                Folio = $"PAY-{DateTime.Now:yyyyMMddHHmmss}",
+                TicketId = dto.TicketId,
+                PaymentNumber = nextPaymentNumber,
+                Folio = $"PAY-{DateTime.UtcNow:yyyyMMddHHmmss}",
                 Amount = dto.Amount,
-                PaymentDate = DateTime.Now
+                PaymentDate = DateTime.UtcNow
             };
-
-            ticket.PendingAmount -= dto.Amount;
-
-            if (ticket.PendingAmount == 0)
-            {
-                ticket.Status = TicketStatus.Pagado;
-                ticket.PaidDate = DateTime.Now;
-            }
 
             context.Payments.Add(payment);
             context.SaveChanges();
-
-            return payment;
         }
-
-    
     }
-
-
-
 }
