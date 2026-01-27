@@ -21,6 +21,7 @@ namespace PRUEBA_TECNICA_IMOVS.Services.Implementations
         {
             return context.Payments
                 .Where(p => p.TicketId == ticketId)
+                .OrderBy(p => p.PaymentDate)
                 .Select(p => new PaymentResponseDto
                 {
                     Id = p.Id,
