@@ -110,7 +110,8 @@ POST /api/products
   "name": "PC Gamer",
   "price": 1800,
   "isActive": true
-}
+}  
+```
 
 Obtener productos  
 GET /api/products
@@ -120,7 +121,7 @@ GET /api/products/{id}
 
 ---
 
-Tickets
+### Tickets
 
 Crear ticket  
 POST /api/tickets
@@ -135,6 +136,7 @@ POST /api/tickets
     }
   ]
 }
+```
 
 Obtener ticket por id  
 GET /api/tickets/{id}
@@ -143,7 +145,7 @@ Incluye los detalles del ticket y los pagos asociados.
 
 ---
 
-Pagos
+### Pagos
 
 Registrar pago  
 POST /api/payments
@@ -153,6 +155,7 @@ POST /api/payments
   "ticketId": 1,
   "amount": 1800
 }
+```
 
 Obtener pagos por ticket  
 GET /api/payments/ticket/{ticketId}
@@ -161,7 +164,7 @@ Los pagos se devuelven ordenados del más reciente al más antiguo.
 
 ---
 
-Base de datos
+## Base de datos
 
 La base de datos se genera automáticamente usando Entity Framework Code First.
 
@@ -170,7 +173,7 @@ No es necesario crear manualmente tablas en SQL Server.
 
 ---
 
-Notas finales
+## Notas finales
 
 Cada ticket y cada pago tienen su propio folio.
 
