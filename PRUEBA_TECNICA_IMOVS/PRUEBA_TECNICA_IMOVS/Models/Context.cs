@@ -12,8 +12,15 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         {
         }
 
+        public DbSet <Product> Products { get; set; } 
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketDetail> TicketDetails { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
         }
+
     }
 }
