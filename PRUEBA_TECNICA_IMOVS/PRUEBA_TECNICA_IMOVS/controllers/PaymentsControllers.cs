@@ -16,7 +16,7 @@ namespace PRUEBA_TECNICA_IMOVS.Controllers
         public IHttpActionResult CreatePayments(CreatePaymentDto dto)
         {
             if (dto == null || dto.Amount <= 0)
-                return BadRequest("Invalid payment data.");
+                return BadRequest("Datos de pago invalidos");
 
             var ticket = _context.Tickets
                 .Include("Payments")
@@ -26,10 +26,10 @@ namespace PRUEBA_TECNICA_IMOVS.Controllers
                 return NotFound();
 
             if (ticket.Status == TicketStatus.Paid)
-                return BadRequest("Ticket already paid.");
+                return BadRequest("El ticket ya fue pagado");
 
             if (dto.Amount > ticket.PendingAmount)
-                return BadRequest("Payment exceeds pending amount.");
+                return BadRequest("Los pagos exceden la cantidad");
 
             var payment = new Payment
             {
