@@ -22,7 +22,7 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         [Required]
         public decimal Amount { get; set; }
 
-        public DateTime PaymantDate { get; set; } = DateTime.Now;
+        public DateTime PaymentDate { get; set; } = DateTime.Now;
 
         [ForeignKey ("TicketId")]
         public virtual Ticket Ticket { get; set; }
