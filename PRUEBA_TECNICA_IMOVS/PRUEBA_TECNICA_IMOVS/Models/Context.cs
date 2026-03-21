@@ -1,7 +1,5 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Linq;
+using PRUEBA_TECNICA_IMOVS.Models.Entities;
 
 namespace PRUEBA_TECNICA_IMOVS.Models
 {
@@ -12,8 +10,11 @@ namespace PRUEBA_TECNICA_IMOVS.Models
         {
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-        }
+        public DbSet<Producto> Productos { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketDetalle> TicketDetalles { get; set; }
+        public DbSet<Pago> Pagos { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) { }
     }
 }
