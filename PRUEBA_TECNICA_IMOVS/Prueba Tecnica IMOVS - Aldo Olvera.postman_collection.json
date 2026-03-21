@@ -1,0 +1,141 @@
+{
+  "info": {
+    "_postman_id": "8c5a3657-3e89-4019-a80f-7995febfda85",
+    "name": "Prueba Técnica IMOVS - Aldo Olvera",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "41688416"
+  },
+  "item": [
+    {
+      "name": "1. Catálogo - Crear Producto",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"Nombre\": \"Laptop Gamer\",\n    \"PrecioUnitario\": 25000.00\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:44349/api/productos",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "44349",
+          "path": [
+            "api",
+            "productos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "2. Catálogo - Listar Todos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:44349/api/productos",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "44349",
+          "path": [
+            "api",
+            "productos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "3. Ticket - Crear Compra a Crédito",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"Detalles\": [\n        {\n            \"ProductoId\": 1,\n            \"Cantidad\": 2,\n            \"PrecioUnitario\": 25000.00\n        }\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:44349/api/tickets",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "44349",
+          "path": [
+            "api",
+            "tickets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "4. Pagos - Registrar Abono",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "15000.00",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:44349/api/tickets/2/pagos",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "44349",
+          "path": [
+            "api",
+            "tickets",
+            "2",
+            "pagos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "5. Pagos - Ver Historial",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:44349/api/tickets/1/pagos",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "44349",
+          "path": [
+            "api",
+            "tickets",
+            "1",
+            "pagos"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

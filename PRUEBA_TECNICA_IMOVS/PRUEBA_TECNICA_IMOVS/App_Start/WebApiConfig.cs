@@ -9,9 +9,12 @@ namespace PRUEBA_TECNICA_IMOVS
     {
         public static void Register(HttpConfiguration config)
         {
-            // Configuración y servicios de Web API
+            // 1. Configuración de Serialización JSON (Hacer esto antes de las rutas es buena práctica)
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            json.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
 
-            // Rutas de Web API
+            // 2. Rutas de Web API - SE LLAMA SOLO UNA VEZ
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
